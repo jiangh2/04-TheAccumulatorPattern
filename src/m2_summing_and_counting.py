@@ -51,7 +51,7 @@ def run_test_sum_more_cosines():
     #     and the ACTUAL answer returned when you call the function.
     #     Follow the same form as in the test case we provided below.
     # ------------------------------------------------------------------
-    print() 
+    print()
     print('--------------------------------------------------')
     print('Testing the   sum_more_cosines   function:')
     print('--------------------------------------------------')
