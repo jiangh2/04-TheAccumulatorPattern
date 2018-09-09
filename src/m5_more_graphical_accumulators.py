@@ -27,9 +27,9 @@ import rosegraphics as rg
 # ----------------------------------------------------------------------
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_draw_squares_from_circle()
+    #run_test_draw_squares_from_circle()
     run_test_draw_circles_from_rectangle()
-    run_test_draw_lines_from_rectangles()
+    #run_test_draw_lines_from_rectangles()
 
 
 def run_test_draw_squares_from_circle():
@@ -140,14 +140,16 @@ def run_test_draw_circles_from_rectangle():
     rectangle.outline_thickness = 5
     rectangle.outline_color = 'black'
     rectangle.fill_color = 'green'
-
+    rectangle.attach_to(window1)
     draw_circles_from_rectangle(4, 5, rectangle, window1)
+
 
     # Test2:
     rectangle = rg.Rectangle(rg.Point(500, 450), rg.Point(600, 400))
     rectangle.outline_thickness = 3
     rectangle.outline_color = 'red'
     rectangle.fill_color = 'blue'
+    rectangle.attach_to(window1)
     draw_circles_from_rectangle(8, 3, rectangle, window1)
 
     window1.close_on_mouse_click()
@@ -159,6 +161,7 @@ def run_test_draw_circles_from_rectangle():
     rectangle.outline_thickness = 5
     rectangle.outline_color = 'brown'
     rectangle.fill_color = 'yellow'
+    rectangle.attach_to(window2)
     draw_circles_from_rectangle(6, 10, rectangle, window2)
 
     window2.close_on_mouse_click()
@@ -217,10 +220,31 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type rectangle: rg.Rectangle
       :type window: rg.RoseWindow
     """
-    circle1 = rg.Circle(Center_Point, radius)
-    circle1.fill_color = 'blue'
-    circle2 = rg.Circle(Center_Point2, radius2)
-    circle2.outline_color = 'red'
+    window = window
+    radius1 = abs(rectangle.corner_1.y - rectangle.corner_2.y) / 2
+    radius2 = abs(rectangle.corner_1.x - rectangle.corner_2.x) / 2
+    length_of_rectangle = 2 * radius2
+    height_of_rectangle = 2 * radius1
+    x = ((rectangle.corner_1.x + rectangle.corner_2.x) / 2) - (length_of_rectangle / 2) - radius1
+    y = (rectangle.corner_1.y + rectangle.corner_2.y) / 2
+    p = (rectangle.corner_1.x + rectangle.corner_2.x) / 2
+    q = ((rectangle.corner_1.y + rectangle.corner_2.y) / 2) - (height_of_rectangle / 2) - radius2
+    print(x, y, p, q)
+    for k in range(m):
+        center_point = rg.Point(x, y)
+        circle1 = rg.Circle(center_point, radius1)
+        circle1.fill_color = 'green'
+        x = x - 2 * radius1
+        y = y
+        circle1.attach_to(window)
+    for k in range(n):
+        center_point2 = rg.Point(p, q)
+        circle2 = rg.Circle(center_point2, radius2)
+        circle2.outline_color = 'red'
+        p = p
+        q = q - 2 * radius2
+        circle2.attach_to(window)
+    window.render()
 
     # ------------------------------------------------------------------
     # TODO: 4. Implement and test this function.
