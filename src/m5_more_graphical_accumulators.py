@@ -28,8 +28,8 @@ import rosegraphics as rg
 def main():
     """ Calls the   TEST   functions in this module. """
     #run_test_draw_squares_from_circle()
-    run_test_draw_circles_from_rectangle()
-    #run_test_draw_lines_from_rectangles()
+    #run_test_draw_circles_from_rectangle()
+    run_test_draw_lines_from_rectangles()
 
 
 def run_test_draw_squares_from_circle():
@@ -233,21 +233,21 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
     for k in range(m):
         center_point = rg.Point(x, y)
         circle1 = rg.Circle(center_point, radius1)
-        circle1.fill_color = 'green'
+        circle1.fill_color = rectangle.fill_color
         x = x - 2 * radius1
         y = y
         circle1.attach_to(window)
     for k in range(n):
         center_point2 = rg.Point(p, q)
         circle2 = rg.Circle(center_point2, radius2)
-        circle2.outline_color = 'red'
+        circle2.outline_color = rectangle.outline_color
         p = p
         q = q - 2 * radius2
         circle2.attach_to(window)
     window.render()
 
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -338,6 +338,38 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
       :type n: int
       :type window: rg.RoseWindow
       """
+    window = window
+
+    length_of_rectangle = abs(rectangle1.corner_1.x - rectangle1.corner_2.x)
+    height_of_rectangle = abs(rectangle1.corner_1.y - rectangle1.corner_2.y)
+    starting_point1 = rg.Point((rectangle1.corner_1.x + rectangle1.corner_2.x) / 2, + (rectangle1.corner_1.y + rectangle1.corner_2.y) / 2)
+    end_point1 = rg.Point((rectangle2.corner_1.x + rectangle2.corner_2.x) / 2, + (rectangle2.corner_1.y + rectangle2.corner_2.y) / 2)
+    x1 = starting_point1.x
+    y1 = starting_point1.y
+    p1 = end_point1.x
+    q1 = end_point1.y
+    dx = - length_of_rectangle / 2
+    dy = height_of_rectangle / 2
+    rectangle1.attach_to(window)
+    rectangle2.attach_to(window)
+    for k in range(n):
+
+        line = rg.Line(rg.Point(x1, y1), rg.Point(p1, q1))
+        line.color = rectangle1.outline_color
+        x1 = x1 + dx
+        y1 = y1 + dy
+        p1 = p1 + dx
+        q1 = q1 + dy
+        if k % 2 == 0:
+            line.color = rectangle1.outline_color
+        else:
+            line.color = rectangle2.outline_color
+
+        line.attach_to(window)
+
+    window.render()
+
+
     # ------------------------------------------------------------------
     # TODO: 5. Implement and test this function.
     #          Tests have been written for you (above).
