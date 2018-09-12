@@ -338,7 +338,7 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
       :type n: int
       :type window: rg.RoseWindow
       """
-    window = window
+
 
     length_of_rectangle = abs(rectangle1.corner_1.x - rectangle1.corner_2.x)
     height_of_rectangle = abs(rectangle1.corner_1.y - rectangle1.corner_2.y)
